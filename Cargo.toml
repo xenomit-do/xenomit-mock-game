@@ -1,0 +1,40 @@
+[package]
+name = "xenomit-mock-game"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Mock DarkOrbit Backpage + game server + forward proxy for bot tests and benchmarks"
+
+[lib]
+name = "xenomit_mock_game"
+path = "src/lib.rs"
+
+[[bin]]
+name = "xenomit-mock-game"
+path = "src/main.rs"
+
+[[bin]]
+name = "mock-proxy"
+path = "src/bin/mock_proxy.rs"
+
+[dependencies]
+xenomit-packet-client = { path = "../xenomit-packet-client" }
+tokio = { version = "1.53.1", features = [
+    "rt-multi-thread",
+    "net",
+    "io-util",
+    "sync",
+    "time",
+    "macros",
+    "signal",
+] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"
+
+[dev-dependencies]
+xenomit_backpage = { path = "../xenomit-backpage" }
+xenomit-packet-client = { path = "../xenomit-packet-client", features = ["game-api"] }
+xenomit-game-api = { path = "../xenomit-game-api" }
+reqwest = { version = "0.12", default-features = false, features = ["json"] }
+tokio = { version = "1.53.1", features = ["full"] }
